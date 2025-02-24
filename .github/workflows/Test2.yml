@@ -1,32 +1,50 @@
 name: Run tests
 on:
   workflow_dispatch:
-  pull_request:
+
 jobs:
   test:
     name: Test
     runs-on: ubuntu-22.04
+
     container:
       image: node:20
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository 2
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - uses: browser-actions/setup-chrome@v1
+
+      - name: Install Chrome 2
+        uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 120
           install-dependencies: true
-      - run: |
-            cd src
-            python3 -m http.server 8000 &
-            sleep 10 &&
-            curl http://localhost:8000
-            cd ..
-            cd tests
-            npm install
-            ./node_modules/.bin/mocha *.js
-      - uses: actions/upload-artifact@v4
+
+      - name: Install dependencies 2
+        run: npm install  # Ensure dependencies are installed at root
+
+      - name: Install Selenium WebDriver
+        run: npm install selenium-webdriver --save-dev
+
+      - name: Start local server 2
+        run: |
+          cd src
+          python3 -m http.server 8000 &
+          sleep 10
+          curl http://localhost:8000
+
+      - name: Run Tests 2
+        run: |
+          cd tests
+          npx mocha *.js
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: screenshots
