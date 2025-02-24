@@ -39,7 +39,7 @@ describe('test1', function() {
         }
     });
   it('test2', async function() {
-    await driver.get("http://127.0.0.1:5500/")
+    await driver.get("http://localhost:8000")
     await driver.manage().window().setRect({ width: 1500, height: 952 })
     await driver.findElement(By.id("num1")).click()
     await driver.findElement(By.id("num1")).sendKeys("2")
