@@ -1,6 +1,7 @@
 name: Run tests
 on:
   workflow_dispatch:
+
 jobs:
   test:
     name: Test
@@ -10,34 +11,37 @@ jobs:
       image: node:20
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository 1
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js 1
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Chrome
+      - name: Install Chrome 1
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 120
           install-dependencies: true
 
-      - name: Install dependencies
+      - name: Install dependencies 1
         run: npm install  # Ensure dependencies are installed at root
 
-      - name: Start local server
+      - name: Install Selenium WebDriver
+        run: npm install selenium-webdriver --save-dev
+
+      - name: Start local server 1
         run: |
           cd src
           python3 -m http.server 8000 &
           sleep 10
           curl http://localhost:8000
 
-      - name: Run Tests
+      - name: Run Tests 1
         run: |
           cd tests
-          npx mocha *.js  # Use npx to avoid path issues
+          npx mocha *.js
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@v4
