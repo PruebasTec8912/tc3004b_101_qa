@@ -11,34 +11,34 @@ jobs:
       image: node:20
 
     steps:
-      - name: Checkout repository 1
+      - name: Checkout repository 2
         uses: actions/checkout@v4
 
-      - name: Set up Node.js 1
+      - name: Set up Node.js 2
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Chrome 1
+      - name: Install Chrome 2
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 120
           install-dependencies: true
 
-      - name: Install dependencies 1
+      - name: Install dependencies 2
         run: npm install  # Ensure dependencies are installed at root
 
       - name: Install Selenium WebDriver
         run: npm install selenium-webdriver --save-dev
 
-      - name: Start local server 1
+      - name: Start local server 2
         run: |
           cd src
           python3 -m http.server 8000 &
           sleep 10
           curl http://localhost:8000
 
-      - name: Run Tests 1
+      - name: Run Tests 2
         run: |
           cd tests
           npx mocha *.js
