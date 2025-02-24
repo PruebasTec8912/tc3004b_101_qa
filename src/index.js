@@ -19,11 +19,8 @@ function sub(){
 }
 
 
-
 function reset(){
-
-    document.getElementById("num1").value =" ";
-    document.getElementById("num2").value = " ";
-    document.getElementById("result").innerText="Result: "
-
+    document.getElementById("num1").value = "";
+    document.getElementById("num2").value = "";
+    document.getElementById("result").innerText = "Result:";
 }
